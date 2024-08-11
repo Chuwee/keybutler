@@ -19,6 +19,7 @@
 
 // Assuming generate.js has been loaded before content.js
 let currentPasswordField = null;
+var global_popup = null;
 
 // Function to extract the domain name from a URL
 function extractDomain(url) {
@@ -63,14 +64,23 @@ function createCustomPopup(element) {
         }
         document.body.removeChild(popup);  // Optionally remove the popup after use
         popup.remove()
+        global_popup = null;
     });
 
     popup.appendChild(button);
     document.body.appendChild(popup);
+    return popup;
 }
 
 document.addEventListener('focusin', event => {
     if (event.target.type === 'password') {
-        createCustomPopup(event.target);
+        global_popup = createCustomPopup(event.target);
     }
+});
+
+document.addEventListener('focusout', event => {
+    setTimeout(() => {if (event.target.type === 'password' && global_popup != null) {
+        global_popup.remove()
+        global_popup = null;
+    }}, 250)
 });
