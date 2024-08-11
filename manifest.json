@@ -1,16 +1,22 @@
 {
     "manifest_version": 3,
-    "name": "Keyholder",
+    "name": "Algorithm Editor",
     "version": "1.0",
-    "permissions": ["activeTab"],
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["generator.js", "content.js"]
-      }
+    "permissions": [
+        "storage"
     ],
     "action": {
-      "default_popup": "popup.html"
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+    {
+      "js": [
+        "generator.js",
+        "content.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
-  }
-  
+  ]
+}
